@@ -8,6 +8,17 @@ on:
     - cron: '0 * * * *'
   workflow_dispatch:
 
+# 設定權限
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# 允許同時只執行一個部署
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
 jobs:
   update-and-deploy:
     runs-on: ubuntu-latest
@@ -24,11 +35,16 @@ jobs:
     - name: Update content
       run: |
         echo "Updating website at $(date)"
-        # 這裡可以加入自動更新內容的腳本
-        # 例如：抓取新聞、更新數據...
+        echo "<!-- Last updated: $(date) -->" >> index.html
+        # 這裡可以加入更多自動更新內容的腳本
+    
+    - name: Setup Pages
+      uses: actions/configure-pages@v4
+      
+    - name: Upload artifact
+      uses: actions/upload-pages-artifact@v3
+      with:
+        path: ./
     
     - name: Deploy to GitHub Pages
-      uses: peaceiris/actions-gh-pages@v3
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./
+      uses: actions/deploy-pages@v4
