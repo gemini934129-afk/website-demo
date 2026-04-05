@@ -13,112 +13,285 @@
         
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
             min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
             padding: 20px;
+            color: #333;
         }
         
         .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        /* Header Card */
+        .header-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            color: white;
+            text-align: center;
+        }
+        
+        .header-card .emoji {
+            font-size: 64px;
+            margin-bottom: 15px;
+        }
+        
+        .header-card h1 {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+        
+        .header-card .subtitle {
+            opacity: 0.9;
+            font-size: 16px;
+        }
+        
+        /* Profile Section */
+        .profile-card {
             background: white;
             border-radius: 20px;
             padding: 40px;
-            max-width: 600px;
-            width: 100%;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-        }
-        
-        h1 {
-            color: #333;
-            margin-bottom: 10px;
-            font-size: 28px;
-        }
-        
-        .subtitle {
-            color: #666;
             margin-bottom: 30px;
-            font-size: 14px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
         }
         
-        .update-time {
-            background: #f0f0f0;
-            border-radius: 10px;
-            padding: 20px;
-            margin-bottom: 20px;
-        }
-        
-        .update-time h2 {
+        .profile-card h2 {
             color: #667eea;
-            font-size: 16px;
-            margin-bottom: 10px;
-        }
-        
-        #lastUpdated {
             font-size: 24px;
-            font-weight: bold;
-            color: #333;
-            font-family: monospace;
-        }
-        
-        .status {
+            margin-bottom: 20px;
             display: flex;
             align-items: center;
             gap: 10px;
-            margin-top: 20px;
-            padding: 15px;
+        }
+        
+        .profile-content {
+            color: #555;
+            line-height: 1.8;
+            font-size: 15px;
+        }
+        
+        .profile-content p {
+            margin-bottom: 15px;
+        }
+        
+        /* Status Section */
+        .status-card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+        
+        .status-card h2 {
+            color: #667eea;
+            font-size: 20px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .update-time {
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .update-time .label {
+            color: #667eea;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        #lastUpdated {
+            font-size: 28px;
+            font-weight: bold;
+            color: #333;
+            font-family: 'SF Mono', Monaco, monospace;
+        }
+        
+        .status-indicator {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            padding: 15px 25px;
             background: #e8f5e9;
-            border-radius: 10px;
+            border-radius: 50px;
+            width: fit-content;
+            margin: 0 auto;
         }
         
         .status-dot {
-            width: 12px;
-            height: 12px;
+            width: 14px;
+            height: 14px;
             background: #4caf50;
             border-radius: 50%;
             animation: pulse 2s infinite;
         }
         
         @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
+            0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(76, 175, 80, 0.7); }
+            50% { opacity: 0.8; box-shadow: 0 0 0 10px rgba(76, 175, 80, 0); }
         }
         
-        .content-box {
-            margin-top: 30px;
-            padding: 20px;
-            border: 2px dashed #ddd;
-            border-radius: 10px;
+        /* Content Feed */
+        .feed-card {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+        
+        .feed-card h2 {
+            color: #667eea;
+            font-size: 24px;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .feed-item {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 20px;
+            border-left: 4px solid #667eea;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        
+        .feed-item:hover {
+            transform: translateX(5px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+        
+        .feed-item:last-child {
+            margin-bottom: 0;
+        }
+        
+        .feed-item .category {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        
+        .feed-item .title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+        }
+        
+        .feed-item .content {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+        
+        .feed-item .time {
+            color: #999;
+            font-size: 13px;
+        }
+        
+        /* Empty State */
+        .empty-state {
             text-align: center;
+            padding: 40px;
             color: #999;
         }
         
-        .emoji {
+        .empty-state .emoji {
             font-size: 48px;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
+        }
+        
+        /* Footer */
+        .footer {
+            text-align: center;
+            color: rgba(255,255,255,0.5);
+            padding: 20px;
+            font-size: 14px;
+        }
+        
+        /* Responsive */
+        @media (max-width: 600px) {
+            .header-card, .profile-card, .status-card, .feed-card {
+                padding: 25px;
+            }
+            
+            .header-card h1 {
+                font-size: 24px;
+            }
+            
+            #lastUpdated {
+                font-size: 20px;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>🦐 老闆的自動更新網站</h1>
-        <p class="subtitle">示範靜態網站 + GitHub Pages 自動部署</p>
-        
-        <div class="update-time">
-            <h2>⏰ 最後更新時間</h2>
-            <div id="lastUpdated">2026-04-05 16:54:00</div>
+        <!-- Header -->
+        <div class="header-card">
+            <div class="emoji">🦐</div>
+            <h1>老闆的自動更新網站</h1>
+            <p class="subtitle">自動化情報収集・情報発信プラットフォーム</p>
         </div>
         
-        <div class="status">
-            <div class="status-dot"></div>
-            <span>✅ 網站運作正常</span>
+        <!-- Profile -->
+        <div class="profile-card">
+            <h2>👤 プロフィール</h2>
+            <div class="profile-content">
+                <p>こんにちは、私はテクノロジーと自動化に情熱を持つクリエイターです。</p>
+                <p>毎日の情報収集から週次のレポート作成まで、AIと自動化ツールを駆使して効率的な情報管理システムを構築しています。</p>
+                <p>財経ニュース、法律情報、最新技術トレンドなど、多様な分野の情報を自動的に収集・整理し、このサイトで発信しています。</p>
+                <p>「効率よく、楽しく、知識を増やす」をモットーに活動中です。</p>
+            </div>
         </div>
         
-        <div class="content-box">
-            <div class="emoji">📝</div>
-            <p>這個區塊可以放置自動更新的內容</p>
-            <p>例如：財經新聞、法律週報、系統狀態...</p>
+        <!-- Status -->
+        <div class="status-card">
+            <h2>⏰ システム状態</h2>
+            <div class="update-time">
+                <div class="label">最終更新</div>
+                <div id="lastUpdated">2026-04-05 21:23:00</div>
+            </div>
+            <div class="status-indicator">
+                <div class="status-dot"></div>
+                <span>✅ すべてのシステムが正常に稼働中</span>
+            </div>
+        </div>
+        
+        <!-- Latest Content -->
+        <div class="feed-card">
+            <h2>📰 最新情報</h2>
+            <div class="empty-state">
+                <div class="emoji">📝</div>
+                <p>自動タスクからのコンテンツがここに表示されます</p>
+                <p>財経早報・財経晚報・法律週報・YouTube AIノートなど</p>
+            </div>
+        </div>
+        
+        <!-- Footer -->
+        <div class="footer">
+            <p>© 2026 老闆の自動更新サイト | Powered by OpenClaw 🦐</p>
         </div>
     </div>
     
@@ -126,7 +299,7 @@
         // 自動更新時間顯示
         function updateTime() {
             const now = new Date();
-            const formatted = now.toLocaleString('zh-TW', {
+            const formatted = now.toLocaleString('ja-JP', {
                 year: 'numeric',
                 month: '2-digit',
                 day: '2-digit',
@@ -137,7 +310,6 @@
             document.getElementById('lastUpdated').textContent = formatted;
         }
         
-        // 每秒更新一次
         setInterval(updateTime, 1000);
         updateTime();
     </script>
