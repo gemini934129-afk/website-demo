@@ -1,0 +1,34 @@
+name: Auto Update Website
+
+on:
+  push:
+    branches: [ main ]
+  schedule:
+    # 每小時自動更新
+    - cron: '0 * * * *'
+  workflow_dispatch:
+
+jobs:
+  update-and-deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+    
+    - name: Update content
+      run: |
+        echo "Updating website at $(date)"
+        # 這裡可以加入自動更新內容的腳本
+        # 例如：抓取新聞、更新數據...
+    
+    - name: Deploy to GitHub Pages
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./
