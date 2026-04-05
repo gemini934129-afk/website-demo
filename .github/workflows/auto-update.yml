@@ -10,7 +10,7 @@ on:
 
 # 設定權限
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
 
@@ -36,11 +36,31 @@ jobs:
       with:
         node-version: '20'
     
-    - name: Update content
+    - name: Setup Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+    
+    - name: Install Python dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install yfinance
+    
+    - name: Update stock prices
+      run: python update_stocks.py
+    
+    - name: Commit stock data changes
+      run: |
+        git config --local user.email "github-actions[bot]@users.noreply.github.com"
+        git config --local user.name "github-actions[bot]"
+        git add stock_data.json
+        git diff --staged --quiet || git commit -m "Auto-update stock prices: $(date -u +'%Y-%m-%d %H:%M UTC')"
+        git push || echo "No changes to push"
+    
+    - name: Update timestamp
       run: |
         echo "Updating website at $(date)"
         echo "<!-- Last updated: $(date) -->" >> index.html
-        # 這裡可以加入更多自動更新內容的腳本
     
     - name: Setup Pages
       uses: actions/configure-pages@v4
