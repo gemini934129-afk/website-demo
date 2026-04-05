@@ -373,64 +373,66 @@
     </div>
     
     <script>
-        // Finnhub API (Free, supports CORS)
-        const FINNHUB_API_KEY = 'cv2rr81r01qhdaf1q1vgcv2rr81r01qhdaf1q1u0';
-        
-        async function fetchStockPrice(symbol, displayId, changeId, timeId) {
+        // 從 stock_data.json 讀取股價資料
+        async function loadStockData() {
             try {
-                const response = await fetch(`https://finnhub.io/api/v1/quote?symbol=${symbol}&token=${FINNHUB_API_KEY}`);
-                
-                if (!response.ok) throw new Error('API Error');
-                
+                const response = await fetch('stock_data.json');
                 const data = await response.json();
                 
-                if (data.c && data.c !== 0) {
-                    const currentPrice = data.c;  // Current price
-                    const previousClose = data.pc;  // Previous close
-                    const change = currentPrice - previousClose;
-                    const changePercent = (change / previousClose) * 100;
+                if (data.stocks) {
+                    // 台積電 TSM
+                    if (data.stocks.TSM) {
+                        const tsm = data.stocks.TSM;
+                        document.getElementById('tsmcPrice').textContent = `$${tsm.price}`;
+                        
+                        const tsmChangeEl = document.getElementById('tsmcChange');
+                        const tsmIsPositive = tsm.change >= 0;
+                        tsmChangeEl.className = `stock-change ${tsmIsPositive ? 'positive' : 'negative'}`;
+                        tsmChangeEl.innerHTML = `
+                            <span>${tsmIsPositive ? '📈' : '📉'}</span>
+                            <span>${tsmIsPositive ? '+' : ''}${tsm.change} (${tsmIsPositive ? '+' : ''}${tsm.changePercent}%)</span>
+                        `;
+                        
+                        const tsmTime = new Date(tsm.timestamp);
+                        document.getElementById('tsmcTime').textContent = `最終更新: ${tsmTime.toLocaleString('ja-JP', {
+                            month: '2-digit',
+                            day: '2-digit',
+                            hour: '2-digit',
+                            minute: '2-digit'
+                        })}`;
+                    }
                     
-                    // 価格表示
-                    document.getElementById(displayId).textContent = `$${currentPrice.toFixed(2)}`;
-                    
-                    // 変動表示
-                    const changeEl = document.getElementById(changeId);
-                    const isPositive = change >= 0;
-                    changeEl.className = `stock-change ${isPositive ? 'positive' : 'negative'}`;
-                    changeEl.innerHTML = `
-                        <span>${isPositive ? '📈' : '📉'}</span>
-                        <span>${isPositive ? '+' : ''}${change.toFixed(2)} (${isPositive ? '+' : ''}${changePercent.toFixed(2)}%)</span>
-                    `;
-                    
-                    // 時間表示
-                    const now = new Date();
-                    document.getElementById(timeId).textContent = `最終更新: ${now.toLocaleString('ja-JP', {
-                        month: '2-digit',
-                        day: '2-digit',
-                        hour: '2-digit',
-                        minute: '2-digit'
-                    })}`;
-                } else {
-                    throw new Error('Invalid data');
+                    // NVIDIA
+                    if (data.stocks.NVDA) {
+                        const nvda = data.stocks.NVDA;
+                        document.getElementById('nvidiaPrice').textContent = `$${nvda.price}`;
+                        
+                        const nvdaChangeEl = document.getElementById('nvidiaChange');
+                        const nvdaIsPositive = nvda.change >= 0;
+                        nvdaChangeEl.className = `stock-change ${nvdaIsPositive ? 'positive' : 'negative'}`;
+                        nvdaChangeEl.innerHTML = `
+                            <span>${nvdaIsPositive ? '📈' : '📉'}</span>
+                            <span>${nvdaIsPositive ? '+' : ''}${nvda.change} (${nvdaIsPositive ? '+' : ''}${nvda.changePercent}%)</span>
+                        `;
+                        
+                        const nvdaTime = new Date(nvda.timestamp);
+                        document.getElementById('nvidiaTime').textContent = `最終更新: ${nvdaTime.toLocaleString('ja-JP', {
+                            month: '2-digit',
+                            day: '2-digit',
+                            hour: '2-digit',
+                            minute: '2-digit'
+                        })}`;
+                    }
                 }
             } catch (error) {
-                console.error('Stock fetch error:', error);
-                document.getElementById(displayId).textContent = 'データ取得不可';
-                document.getElementById(changeId).innerHTML = '<span>⚠️ 一時的なエラー</span>';
+                console.error('Error loading stock data:', error);
+                document.getElementById('tsmcPrice').textContent = 'データ取得不可';
+                document.getElementById('nvidiaPrice').textContent = 'データ取得不可';
             }
         }
         
-        // 株価を更新
-        function updateStocks() {
-            // 台積電 (美股ADR: TSM)
-            fetchStockPrice('TSM', 'tsmcPrice', 'tsmcChange', 'tsmcTime');
-            // NVIDIA
-            fetchStockPrice('NVDA', 'nvidiaPrice', 'nvidiaChange', 'nvidiaTime');
-        }
-        
-        // 初期読み込みと定期更新 (60秒毎)
-        updateStocks();
-        setInterval(updateStocks, 60000);
+        // 初期読み込み
+        loadStockData();
     </script>
 </body>
 </html>
