@@ -1,5 +1,5 @@
 {
-  "lastUpdate": "2026-06-07T20:19:39.502863",
+  "lastUpdate": "2026-06-07T22:12:12.616682",
   "stocks": {
     "TSM": {
       "name": "台積電 TSMC",
@@ -7,7 +7,7 @@
       "price": 415.17,
       "change": -29.75,
       "changePercent": -6.69,
-      "timestamp": "2026-06-07T20:19:39.326114"
+      "timestamp": "2026-06-07T22:12:12.492669"
     },
     "NVDA": {
       "name": "NVIDIA 輝達",
@@ -15,7 +15,7 @@
       "price": 205.1,
       "change": -13.56,
       "changePercent": -6.2,
-      "timestamp": "2026-06-07T20:19:39.502801"
+      "timestamp": "2026-06-07T22:12:12.616607"
     }
   }
 }
