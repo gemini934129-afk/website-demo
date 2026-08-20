@@ -1,21 +1,21 @@
 {
-  "lastUpdate": "2026-08-20T19:36:48.853248",
+  "lastUpdate": "2026-08-20T20:36:29.351114",
   "stocks": {
     "TSM": {
       "name": "台積電 TSMC",
       "symbol": "2330.TW / TSM",
-      "price": 415.77,
-      "change": 3.68,
-      "changePercent": 0.89,
-      "timestamp": "2026-08-20T19:36:48.698673"
+      "price": 416.0,
+      "change": 3.91,
+      "changePercent": 0.95,
+      "timestamp": "2026-08-20T20:36:29.215996"
     },
     "NVDA": {
       "name": "NVIDIA 輝達",
       "symbol": "NVDA",
-      "price": 217.24,
-      "change": -0.32,
-      "changePercent": -0.15,
-      "timestamp": "2026-08-20T19:36:48.853161"
+      "price": 216.85,
+      "change": -0.71,
+      "changePercent": -0.33,
+      "timestamp": "2026-08-20T20:36:29.351051"
     }
   }
 }
